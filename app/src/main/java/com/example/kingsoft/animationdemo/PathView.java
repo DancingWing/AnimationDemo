@@ -187,9 +187,11 @@ public class PathView extends View {
             if(mIStyle instanceof Plus) {
                 drawPlus(canvas);
                 if(x<mWidth/2.0) {stopDraw(canvas,mBitmap2);}
-                Log.v("21", x + "," + y);
+
             }else if(mIStyle instanceof Shutter){
                 drawShutter(canvas);
+                if(x<mWidth*3.0/4.0) {stopDraw(canvas, mBitmap2);}
+                Log.v("21", x + "," + y);
             }else if(mIStyle instanceof Translate){
                 drawTranslate(canvas);
             }
