@@ -29,7 +29,7 @@
                 <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="0,1,2,3">
+                    android:stretchColumns="0,1,2,3,4">
 
                     <TableRow>
 
@@ -53,6 +53,15 @@
                             android:layout_height="wrap_content"
                             android:text="@string/translate"
                             android:background="@color/white" />
+
+                        <Button
+                            android:id="@+id/box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/box"
+                            android:background="@color/white" />
+
+
                     </TableRow>
                 </TableLayout>
 

@@ -4,23 +4,23 @@ import android.app.TabActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 
-public class MainActivity extends TabActivity{
-    private boolean mTimeOn1=false;
-    private boolean mTimeOn2=true;
-    private static final int UPDATE_VIEW1=1;
-    private double step=0;
+public class MainActivity extends TabActivity {
+    private boolean mTimeOn1 = false;
+    private boolean mTimeOn2 = true;
+    private static final int UPDATE_VIEW1 = 1;
+    private double step = 0;
 
 
-    Plus mPlus=new Plus();
-    Shutter mShutter=new Shutter();
-    Translate mTranslate=new Translate();
+    Plus mPlus = new Plus();
+    Shutter mShutter = new Shutter();
+    Translate mTranslate = new Translate();
+    Box mBox=new Box();
     PathView mPathView;
 
 
@@ -52,36 +52,34 @@ public class MainActivity extends TabActivity{
                 .setContent(R.id.tab04);
         tabHost.addTab(tab4);
 
-        mPathView=(PathView)findViewById(R.id.pathView);
-        Button bPlus=(Button)findViewById(R.id.plus);
-        Button bShutter=(Button)findViewById(R.id.shutter);
-        Button bTranslate=(Button)findViewById(R.id.translate);
-        final Button bSubmit=(Button)findViewById(R.id.submit);
+        mPathView = (PathView) findViewById(R.id.pathView);
+        Button bPlus = (Button) findViewById(R.id.plus);
+        Button bShutter = (Button) findViewById(R.id.shutter);
+        Button bTranslate = (Button) findViewById(R.id.translate);
+        Button bBox=(Button) findViewById(R.id.box);
+        final Button bSubmit = (Button) findViewById(R.id.submit);
 
-        final EditText eTime=(EditText)findViewById(R.id.time);
+        final EditText eTime = (EditText) findViewById(R.id.time);
 
         //获取View的高和宽
-        ViewTreeObserver vto=mPathView.getViewTreeObserver();
+        ViewTreeObserver vto = mPathView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 mPathView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 mPathView.mHeight = mPathView.getHeight();
                 mPathView.mWidth = mPathView.getWidth();
-                Log.v("XY", mPathView.mHeight + "," + mPathView.mWidth);
             }
         });
 
 
-
-
-        final Handler mHandler=new Handler(){
+        final Handler mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
-                if(msg.what==UPDATE_VIEW1){
-                    mPathView.index+=step;
-                    mPathView.x = mPathView.mWidth -mPathView.index;
-                    mPathView.y = mPathView.x * (float)(1248.0 / 1080.0);
+            public void handleMessage(Message msg) {
+                if (msg.what == UPDATE_VIEW1) {
+                    mPathView.index += step;
+                    mPathView.x = mPathView.mWidth - mPathView.index;
+                    mPathView.y = mPathView.x * (mPathView.mHeight / mPathView.mWidth);
                     mPathView.invalidate();
 
                 }
@@ -89,31 +87,31 @@ public class MainActivity extends TabActivity{
         };
 
 
-
         //获取高宽
 
         final TimerForRedraw mTimerForRedraw = new TimerForRedraw(mHandler);
 
-        bPlus.setOnClickListener(new View.OnClickListener(){
+        bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 //避免出现点击按钮会越来越快
                 mPathView.setStyle(mPlus);
                 mPathView.init();
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try{
-                            step=54.0/(Integer.parseInt(eTime.getText().toString()));
-                        }catch (Exception e){
+                        try {
+                            //根据用户输入的时间确定步长
+                            step = (mPathView.mWidth / (2.0 * 10)) / (Integer.parseInt(eTime.getText().toString()));
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if(!mTimeOn1) {
-                            mTimeOn1=true;
+                        if (!mTimeOn1) {
+                            mTimeOn1 = true;
                             mPathView.init();
                             mTimerForRedraw.schedule1();
 
-                        }else{
+                        } else {
                             mPathView.init();
                         }
 
@@ -122,24 +120,24 @@ public class MainActivity extends TabActivity{
             }
         });
         //设置百叶窗效果
-        bShutter.setOnClickListener(new View.OnClickListener(){
+        bShutter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View V){
+            public void onClick(View V) {
                 mPathView.setStyle(mShutter);
                 mPathView.init();
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try{
-                            step=27.0/(Integer.parseInt(eTime.getText().toString()));
-                        }catch(Exception e){
+                        try {
+                            step = (mPathView.mWidth / (4 * 10)) / (Integer.parseInt(eTime.getText().toString()));
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if(!mTimeOn1){
-                            mTimeOn1=true;
+                        if (!mTimeOn1) {
+                            mTimeOn1 = true;
                             mPathView.init();
                             mTimerForRedraw.schedule1();
-                        }else{
+                        } else {
                             mPathView.init();
                         }
                     }
@@ -147,25 +145,53 @@ public class MainActivity extends TabActivity{
             }
         });
 
-        bTranslate.setOnClickListener(new View.OnClickListener(){
+        //设置切换效果
+        bTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 mPathView.setStyle(mTranslate);
                 mPathView.init();
-                bSubmit.setOnClickListener(new View.OnClickListener(){
+                bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
-                        try{
-                            step=108/(Integer.parseInt(eTime.getText().toString()));
-                        }catch (Exception e){
+                    public void onClick(View v) {
+                        try {
+                            step = (mPathView.mWidth / 10) / (Integer.parseInt(eTime.getText().toString()));
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if(!mTimeOn1){
-                            mTimeOn1=true;
+                        if (!mTimeOn1) {
+                            mTimeOn1 = true;
                             mPathView.init();
-
                             mTimerForRedraw.schedule1();
-                        }else{
+                        } else {
+                            mPathView.init();
+                        }
+
+                    }
+
+                });
+            }
+        });
+
+        //设置盒状效果
+        bBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                mPathView.setStyle(mBox);
+                mPathView.init();
+                bSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            step = (mPathView.mWidth / (2*10)) / (Integer.parseInt(eTime.getText().toString()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (!mTimeOn1) {
+                            mTimeOn1 = true;
+                            mPathView.init();
+                            mTimerForRedraw.schedule1();
+                        } else {
                             mPathView.init();
                         }
 
