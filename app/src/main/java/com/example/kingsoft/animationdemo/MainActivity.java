@@ -98,8 +98,8 @@ public class MainActivity extends TabActivity{
             @Override
             public void onClick(View v){
                 //避免出现点击按钮会越来越快
-                Log.v("bn","Plus");
                 mPathView.setStyle(mPlus);
+                mPathView.init();
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,8 +125,8 @@ public class MainActivity extends TabActivity{
         bShutter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Log.v("bn","Shutter");
                 mPathView.setStyle(mShutter);
+                mPathView.init();
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -150,8 +150,8 @@ public class MainActivity extends TabActivity{
         bTranslate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Log.v("bn","Translate");
                 mPathView.setStyle(mTranslate);
+                mPathView.init();
                 bSubmit.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -168,6 +168,7 @@ public class MainActivity extends TabActivity{
                         }else{
                             mPathView.init();
                         }
+
                     }
 
                 });
