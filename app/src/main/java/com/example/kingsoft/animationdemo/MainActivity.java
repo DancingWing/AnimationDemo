@@ -66,9 +66,9 @@ public class MainActivity extends TabActivity{
             @Override
             public void onGlobalLayout() {
                 mPathView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mPathView.mHeight=mPathView.getHeight();
-                mPathView.mWidth=mPathView.getWidth();
-                Log.v("XY",mPathView.mHeight+","+mPathView.mWidth);
+                mPathView.mHeight = mPathView.getHeight();
+                mPathView.mWidth = mPathView.getWidth();
+                Log.v("XY", mPathView.mHeight + "," + mPathView.mWidth);
             }
         });
 
@@ -98,19 +98,19 @@ public class MainActivity extends TabActivity{
             @Override
             public void onClick(View v){
                 //避免出现点击按钮会越来越快
+                Log.v("bn","Plus");
+                mPathView.setStyle(mPlus);
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         try{
-                            step=27.0/(Integer.parseInt(eTime.getText().toString()));
+                            step=54.0/(Integer.parseInt(eTime.getText().toString()));
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                         if(!mTimeOn1) {
                             mTimeOn1=true;
                             mPathView.init();
-                            mPathView.setStyle(mPlus);
                             mTimerForRedraw.schedule1();
 
                         }else{
@@ -125,6 +125,8 @@ public class MainActivity extends TabActivity{
         bShutter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
+                Log.v("bn","Shutter");
+                mPathView.setStyle(mShutter);
                 bSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -136,7 +138,6 @@ public class MainActivity extends TabActivity{
                         if(!mTimeOn1){
                             mTimeOn1=true;
                             mPathView.init();
-                            mPathView.setStyle(mShutter);
                             mTimerForRedraw.schedule1();
                         }else{
                             mPathView.init();
@@ -145,8 +146,34 @@ public class MainActivity extends TabActivity{
                 });
             }
         });
-        //bTranslate.setOnClickListener();
-        //bSubmit.setOnClickListener();
+
+        bTranslate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.v("bn","Translate");
+                mPathView.setStyle(mTranslate);
+                bSubmit.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        try{
+                            step=108/(Integer.parseInt(eTime.getText().toString()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        if(!mTimeOn1){
+                            mTimeOn1=true;
+                            mPathView.init();
+
+                            mTimerForRedraw.schedule1();
+                        }else{
+                            mPathView.init();
+                        }
+                    }
+
+                });
+            }
+        });
+
     }
 
 

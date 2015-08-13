@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Region;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 /**
  * Created by kingsoft on 2015/7/20.
@@ -191,9 +190,9 @@ public class PathView extends View {
             }else if(mIStyle instanceof Shutter){
                 drawShutter(canvas);
                 if(x<mWidth*3.0/4.0) {stopDraw(canvas, mBitmap2);}
-                Log.v("21", x + "," + y);
             }else if(mIStyle instanceof Translate){
                 drawTranslate(canvas);
+                if(x<0){stopDraw(canvas,mBitmap2);}
             }
         }
     }
