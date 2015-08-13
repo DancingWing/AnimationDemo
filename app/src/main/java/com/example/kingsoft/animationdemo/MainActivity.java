@@ -13,6 +13,7 @@ import android.widget.TabHost;
 
 public class MainActivity extends TabActivity{
     private boolean mTimeOn1=false;
+    private boolean mTimeOn2=true;
     private static final int UPDATE_VIEW1=1;
     private double step=0;
 
@@ -110,7 +111,6 @@ public class MainActivity extends TabActivity{
                             mTimeOn1=true;
                             mPathView.init();
                             mPathView.setStyle(mPlus);
-                            Log.v("time","delay"+mTimerForRedraw.delay);
                             mTimerForRedraw.schedule1();
 
                         }else{
@@ -119,23 +119,34 @@ public class MainActivity extends TabActivity{
 
                     }
                 });
-
-
-                //TimerForRedraw.time=Integer.parseInt(eTime.getText().toString());
-                /*bSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        mTimerForRedraw.schedule1();
-
-                    }
-                });*/
-
             }
         });
-        /*bShutter.setOnClickListener();
-        bTranslate.setOnClickListener();
-        bSubmit.setOnClickListener();*/
+        //设置百叶窗效果
+        bShutter.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View V){
+                bSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try{
+                            step=27.0/(Integer.parseInt(eTime.getText().toString()));
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        if(!mTimeOn1){
+                            mTimeOn1=true;
+                            mPathView.init();
+                            mPathView.setStyle(mShutter);
+                            mTimerForRedraw.schedule1();
+                        }else{
+                            mPathView.init();
+                        }
+                    }
+                });
+            }
+        });
+        //bTranslate.setOnClickListener();
+        //bSubmit.setOnClickListener();
     }
 
 
