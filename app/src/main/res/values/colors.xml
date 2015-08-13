@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" >
+    <color name="green">#00796B</color>
+    <color name="white">#CFD8DC</color>
+    <color name="submitBlue">#2196F3</color>
+</resources>

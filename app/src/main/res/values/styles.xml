@@ -1,0 +1,24 @@
+<resources>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowTitleStyle">@style/TextAppearance</item>
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        <item name="android:windowTitleSize">60dp</item>
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="WindowTitleBackground">
+        <item name="android:background">@color/green</item>
+    </style>
+
+    <style name="TextAppearance" >
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
