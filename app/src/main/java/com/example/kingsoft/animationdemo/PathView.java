@@ -153,6 +153,21 @@ public class PathView extends View {
 
     }
 
+    public void drawTriangle(Canvas canvas){
+        mIStyle.setStylePath(mPaths,x,y,mWidth,mHeight);
+        mCanvas.save();
+        mCanvas.clipPath(mPaths[0],Region.Op.XOR);
+        mCanvas.drawBitmap(mBitmap2,0,0,null);
+        mCanvas.restore();
+
+        mCanvas.save();
+        mCanvas.clipPath(mPaths[0], Region.Op.INTERSECT);
+        mCanvas.drawBitmap(mBitmap1, 0, 0, null);
+        mCanvas.restore();
+        canvas.drawBitmap(mBitmap0, 0, 0, null);
+
+    }
+
     protected void stopDraw(Canvas canvas, Bitmap bitmap) {
         canvas.drawBitmap(bitmap, 0, 0, null);
         index = 0;
@@ -185,6 +200,11 @@ public class PathView extends View {
         }else if(mIStyle instanceof Box){
             drawBox(canvas);
             if(x<mWidth/2.0){
+                stopDraw(canvas,mBitmap2);
+            }
+        }else if(mIStyle instanceof Triangle){
+            drawTriangle(canvas);
+            if(x<mWidth/2){
                 stopDraw(canvas,mBitmap2);
             }
         }

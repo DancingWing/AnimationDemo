@@ -21,6 +21,7 @@ public class MainActivity extends TabActivity {
     Shutter mShutter = new Shutter();
     Translate mTranslate = new Translate();
     Box mBox=new Box();
+    Triangle mTriangle=new Triangle();
     PathView mPathView;
 
 
@@ -57,6 +58,7 @@ public class MainActivity extends TabActivity {
         Button bShutter = (Button) findViewById(R.id.shutter);
         Button bTranslate = (Button) findViewById(R.id.translate);
         Button bBox=(Button) findViewById(R.id.box);
+        Button bTriangle=(Button) findViewById(R.id.triangle);
         final Button bSubmit = (Button) findViewById(R.id.submit);
 
         final EditText eTime = (EditText) findViewById(R.id.time);
@@ -201,6 +203,33 @@ public class MainActivity extends TabActivity {
             }
         });
 
+
+        bTriangle.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                mPathView.setStyle(mTriangle);
+                mPathView.init();
+                bSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            step = (mPathView.mWidth / (2*10)) / (Integer.parseInt(eTime.getText().toString()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (!mTimeOn1) {
+                            mTimeOn1 = true;
+                            mPathView.init();
+                            mTimerForRedraw.schedule1();
+                        } else {
+                            mPathView.init();
+                        }
+
+                    }
+
+                });
+            }
+        });
     }
 
 

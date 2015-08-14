@@ -7,6 +7,7 @@
     <string name="shutter">百叶窗</string>
     <string name="translate">切换</string>
     <string name="box">盒状</string>
+    <string name="triangle">三角形</string>
     <string name="submit">确认</string>
     <string name="timehint">请输入动画完成时间(秒)</string>
 </resources>
