@@ -6,24 +6,30 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
 public class MainActivity extends TabActivity {
-    private boolean mTimeOn1 = false;
-    private boolean mTimeOn2 = true;
     private static final int UPDATE_VIEW1 = 1;
-    private double step = 0;
-
-
     Plus mPlus = new Plus();
     Shutter mShutter = new Shutter();
     Translate mTranslate = new Translate();
     Box mBox=new Box();
     Triangle mTriangle=new Triangle();
     PathView mPathView;
-
+    private boolean mTimeOn1 = false;
+    private boolean mTimeOn2 = true;
+    private double step = 0;
+    //缩放/旋转的参数
+    private float scale = 0;
+    private float angle = 0;
+    private int duringTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +66,12 @@ public class MainActivity extends TabActivity {
         Button bBox=(Button) findViewById(R.id.box);
         Button bTriangle=(Button) findViewById(R.id.triangle);
         final Button bSubmit = (Button) findViewById(R.id.submit);
-
         final EditText eTime = (EditText) findViewById(R.id.time);
-
+        final Button bSubmit2 = (Button) findViewById(R.id.submit2);
+        final EditText eTime2 = (EditText) findViewById(R.id.time2);
+        final EditText eScale = (EditText) findViewById(R.id.scale);
+        final EditText eRotate = (EditText) findViewById(R.id.angle);
+        final ImageView scaleImage = (ImageView) findViewById(R.id.scaleImage);
         //获取View的高和宽
         ViewTreeObserver vto = mPathView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -230,6 +239,32 @@ public class MainActivity extends TabActivity {
                 });
             }
         });
+
+        bSubmit2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    scale = Float.parseFloat(eScale.getText().toString());
+                    angle = Float.parseFloat(eRotate.getText().toString());
+                    duringTime = 1000 * Integer.parseInt(eTime2.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                AnimationSet set = new AnimationSet(true);
+                ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, scale, 1.0f, scale,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                RotateAnimation rotateAnimation = new RotateAnimation(0f, angle, Animation.RELATIVE_TO_SELF,
+                        0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation.setDuration(duringTime);
+                rotateAnimation.setDuration(duringTime);
+                set.addAnimation(scaleAnimation);
+                set.addAnimation(rotateAnimation);
+                scaleImage.setAnimation(set);
+                //scaleAnimation.startNow();
+
+            }
+        });
+
     }
 
 

@@ -37,35 +37,35 @@
                             android:id="@+id/plus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/plus"
-                            android:background="@color/white" />
+                            android:background="@color/white"
+                            android:text="@string/plus" />
 
                         <Button
                             android:id="@+id/shutter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/shutter"
-                            android:background="@color/white" />
+                            android:background="@color/white"
+                            android:text="@string/shutter" />
 
                         <Button
                             android:id="@+id/translate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/translate"
-                            android:background="@color/white" />
+                            android:background="@color/white"
+                            android:text="@string/translate" />
 
                         <Button
                             android:id="@+id/box"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/box"
-                            android:background="@color/white" />
+                            android:background="@color/white"
+                            android:text="@string/box" />
                         <Button
                             android:id="@+id/triangle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/triangle"
-                            android:background="@color/white"/>
+                            android:background="@color/white"
+                            android:text="@string/triangle" />
 
 
                     </TableRow>
@@ -83,15 +83,15 @@
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:hint="@string/timehint" />
+                            android:hint="@string/timehint"
+                            android:inputType="number" />
 
                         <Button
                             android:id="@+id/submit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/submit"
-                            android:background="@color/submitBlue" />
+                            android:background="@color/submitBlue"
+                            android:text="@string/submit" />
                     </TableRow>
                 </TableLayout>
 
@@ -107,14 +107,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/tab03"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:textSize="11pt">
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1">
+
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/scale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/scale"
+                            android:inputType="numberDecimal" />
+
+                        <EditText
+                            android:id="@+id/angle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/rotate"
+                            android:inputType="numberDecimal" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0">
+
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/time2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/timehint"
+                            android:inputType="number" />
+
+                        <Button
+                            android:id="@+id/submit2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/submitBlue"
+                            android:text="@string/submit" />
+                    </TableRow>
+                </TableLayout>
+
+                <ImageView
+                    android:id="@+id/scaleImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/image3" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -126,4 +183,3 @@
         </FrameLayout>
     </LinearLayout>
 </TabHost>
-
