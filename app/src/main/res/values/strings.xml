@@ -9,7 +9,8 @@
     <string name="box">盒状</string>
     <string name="triangle">三角形</string>
     <string name="submit">确认</string>
-    <string name="timehint">请输入动画完成时间(秒)</string>
-    <string name="scale">缩放尺度(0~1)</string>
+    <string name="timeHint">请输入动画完成时间(秒)</string>
+    <string name="scale">缩放尺度</string>
     <string name="rotate">旋转角度(逆时针)</string>
+    <string name="colorHint">RGB值,以空格分开(如255 0 0)</string>
 </resources>

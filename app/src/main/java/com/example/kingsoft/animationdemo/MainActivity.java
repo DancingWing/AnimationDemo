@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -17,12 +18,14 @@ import android.widget.TabHost;
 
 public class MainActivity extends TabActivity {
     private static final int UPDATE_VIEW1 = 1;
-    Plus mPlus = new Plus();
-    Shutter mShutter = new Shutter();
-    Translate mTranslate = new Translate();
+    //private static final int UPDATE_VIEW2 = 2;
+    Plus mPlus = null;
+    Shutter mShutter = null;
+    Translate mTranslate = null;
     Box mBox=new Box();
     Triangle mTriangle=new Triangle();
     PathView mPathView;
+    ColorView mColorView;
     private boolean mTimeOn1 = false;
     private boolean mTimeOn2 = true;
     private double step = 0;
@@ -35,6 +38,11 @@ public class MainActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPlus = new Plus();
+        mShutter = new Shutter();
+        mTranslate = new Translate();
+        mPathView = (PathView) findViewById(R.id.pathView);
+        mColorView = (ColorView) findViewById(R.id.colorView);
         // 获取该Activity里面的TabHost组件
         TabHost tabHost = getTabHost();
         // 创建并添加第一个Tab页
@@ -59,7 +67,7 @@ public class MainActivity extends TabActivity {
                 .setContent(R.id.tab04);
         tabHost.addTab(tab4);
 
-        mPathView = (PathView) findViewById(R.id.pathView);
+
         Button bPlus = (Button) findViewById(R.id.plus);
         Button bShutter = (Button) findViewById(R.id.shutter);
         Button bTranslate = (Button) findViewById(R.id.translate);
@@ -72,6 +80,8 @@ public class MainActivity extends TabActivity {
         final EditText eScale = (EditText) findViewById(R.id.scale);
         final EditText eRotate = (EditText) findViewById(R.id.angle);
         final ImageView scaleImage = (ImageView) findViewById(R.id.scaleImage);
+        final EditText eColor = (EditText) findViewById(R.id.color);
+        final Button bSubmit3 = (Button) findViewById(R.id.submit3);
         //获取View的高和宽
         ViewTreeObserver vto = mPathView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -240,6 +250,7 @@ public class MainActivity extends TabActivity {
             }
         });
 
+        //缩放/旋转
         bSubmit2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,6 +273,24 @@ public class MainActivity extends TabActivity {
                 scaleImage.setAnimation(set);
                 //scaleAnimation.startNow();
 
+            }
+        });
+        //颜色
+        bSubmit3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String RGB = eColor.getText().toString();
+                    String[] color = RGB.split(" ");
+                    int R = Integer.parseInt(color[0]);
+                    int G = Integer.parseInt(color[1]);
+                    int B = Integer.parseInt(color[2]);
+                    Log.v("RGB", R + " " + G + " " + B);
+                    mColorView.setRGB(R, G, B);
+                    mColorView.invalidate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

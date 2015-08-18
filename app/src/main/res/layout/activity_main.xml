@@ -74,7 +74,7 @@
                 <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="0">
+                    android:stretchColumns="0,1">
 
                     <TableRow>
 
@@ -83,7 +83,7 @@
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/timehint"
+                            android:hint="@string/timeHint"
                             android:inputType="number" />
 
                         <Button
@@ -144,7 +144,7 @@
                 <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="0">
+                    android:stretchColumns="0,1">
 
                     <TableRow>
 
@@ -152,7 +152,7 @@
                             android:id="@+id/time2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/timehint"
+                            android:hint="@string/timeHint"
                             android:inputType="number" />
 
                         <Button
@@ -164,22 +164,56 @@
                     </TableRow>
                 </TableLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
                 <ImageView
                     android:id="@+id/scaleImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="center"
                     android:src="@drawable/image3" />
-
-
+                </LinearLayout>
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/tab04"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1">
+
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/colorHint" />
+
+                        <Button
+                            android:id="@+id/submit3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/submitBlue"
+                            android:text="@string/submit" />
+                    </TableRow>
+                </TableLayout>
+
+                <com.example.kingsoft.animationdemo.ColorView
+                    android:id="@+id/colorView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
+
         </FrameLayout>
     </LinearLayout>
 </TabHost>
