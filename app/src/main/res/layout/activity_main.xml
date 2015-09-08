@@ -108,9 +108,38 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0">
 
+                    <TableRow>
+
+                        <EditText
+                            android:id="@+id/expression"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/expressionHint" />
+
+                        <Button
+                            android:id="@+id/submit1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/submitBlue"
+                            android:text="@string/submit" />
+                    </TableRow>
+                </TableLayout>
+
+                <ImageView
+                    android:id="@+id/translateImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/image3" />
             </LinearLayout>
 
+
+            <!--定义第三个标签页的内容-->
             <LinearLayout
                 android:id="@+id/tab03"
                 android:layout_width="match_parent"

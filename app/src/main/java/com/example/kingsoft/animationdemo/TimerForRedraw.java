@@ -8,34 +8,20 @@ import java.util.TimerTask;
 /**
  * Created by kingsoft on 2015/7/24.
  */
-//Handler mHandler = new Handler();
-//        Runnable mRunnable = new Runnable() {
-//@Override
-//public void run() {
-//        index++;
-//        calc(index);
-//        postInvalidate();
-//        mHandler.postDelayed(mRunnable, 40);
-//
-//        }
-//        };
 
 public class TimerForRedraw {
 
 
-    private Handler mHandler;
-    public  int delay=100;
     private static final int UPDATE_VIEW1 = 1;
     private static final int UPDATE_VIEW2 = 2;
-    private static final int UPDATE_VIEW3 = 3;
+    final Timer mTimer = new Timer();
+    public int delay = 100;
+    private Handler mHandler;
 
     public TimerForRedraw(Handler handler) {
         this.mHandler = handler;
 
     }
-
-    final Timer mTimer = new Timer();
-
 
     //剪裁的计时器
     public void schedule1() {
@@ -54,15 +40,6 @@ public class TimerForRedraw {
             @Override
             public void run() {
                 mHandler.sendEmptyMessage(UPDATE_VIEW2);
-            }
-        },0,delay);
-    }
-
-    public void schedule3(){
-        mTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                mHandler.sendEmptyMessage(UPDATE_VIEW3);
             }
         },0,delay);
     }

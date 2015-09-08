@@ -1,5 +1,6 @@
 package com.example.kingsoft.animationdemo;
 
+
 import android.app.TabActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,14 +12,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends TabActivity {
     private static final int UPDATE_VIEW1 = 1;
-    //private static final int UPDATE_VIEW2 = 2;
+    private static final int UPDATE_VIEW2 = 2;
     Plus mPlus = null;
     Shutter mShutter = null;
     Translate mTranslate = null;
@@ -26,9 +29,18 @@ public class MainActivity extends TabActivity {
     Triangle mTriangle=new Triangle();
     PathView mPathView;
     ColorView mColorView;
+    HandleExpression handleExpression = new HandleExpression();
+    // 记录ImageView下一个位置的坐标
+    float nextX = 0;
+    float nextY = 1270;
     private boolean mTimeOn1 = false;
-    private boolean mTimeOn2 = true;
     private double step = 0;
+    private String expression;
+    private boolean mTimeOn2 = false;
+    //位移的参数
+    private float curX = 0;
+    private float curY = 1270;
+
     //缩放/旋转的参数
     private float scale = 0;
     private float angle = 0;
@@ -68,13 +80,18 @@ public class MainActivity extends TabActivity {
         tabHost.addTab(tab4);
 
 
-        Button bPlus = (Button) findViewById(R.id.plus);
-        Button bShutter = (Button) findViewById(R.id.shutter);
-        Button bTranslate = (Button) findViewById(R.id.translate);
-        Button bBox=(Button) findViewById(R.id.box);
-        Button bTriangle=(Button) findViewById(R.id.triangle);
+        final Button bPlus = (Button) findViewById(R.id.plus);
+        final Button bShutter = (Button) findViewById(R.id.shutter);
+        final Button bTranslate = (Button) findViewById(R.id.translate);
+        final Button bBox = (Button) findViewById(R.id.box);
+        final Button bTriangle = (Button) findViewById(R.id.triangle);
         final Button bSubmit = (Button) findViewById(R.id.submit);
         final EditText eTime = (EditText) findViewById(R.id.time);
+        //位移的对象
+        final Button bSubmit1 = (Button) findViewById(R.id.submit1);
+        final EditText eExpression = (EditText) findViewById(R.id.expression);
+        final ImageView translateImage = (ImageView) findViewById(R.id.translateImage);
+        //缩放的对象
         final Button bSubmit2 = (Button) findViewById(R.id.submit2);
         final EditText eTime2 = (EditText) findViewById(R.id.time2);
         final EditText eScale = (EditText) findViewById(R.id.scale);
@@ -93,25 +110,42 @@ public class MainActivity extends TabActivity {
             }
         });
 
-
         final Handler mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == UPDATE_VIEW1) {
+                    Log.v("VIEW1", "Hello");
                     mPathView.index += step;
                     mPathView.x = mPathView.mWidth - mPathView.index;
                     mPathView.y = mPathView.x * (mPathView.mHeight / mPathView.mWidth);
                     mPathView.invalidate();
 
                 }
+                if (msg.what == UPDATE_VIEW2) {
+                    Log.v("VIEW2", "Hello");
+                    if (curX > 540) {
+                        curX = nextX = 0;
+                        curY = nextY = 0;
+                    } else {
+                        nextX += 2;
+                        handleExpression.setValue((int) nextX);
+                        handleExpression.processExprssion();
+                        nextY = (int) handleExpression.getY();
+                        TranslateAnimation translateAnim = new TranslateAnimation(curX, nextX, curY, nextY);
+                        curX = nextX;
+                        curY = nextY;
+                        Log.v("123", curX + "," + curY);
+                        translateAnim.setDuration(100);
+                        translateImage.setAnimation(translateAnim);
+                        translateAnim.startNow();
+                    }
+                }
             }
         };
 
 
-        //获取高宽
 
         final TimerForRedraw mTimerForRedraw = new TimerForRedraw(mHandler);
-
         bPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,6 +284,24 @@ public class MainActivity extends TabActivity {
             }
         });
 
+        //位移
+        bSubmit1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expression = eExpression.getText().toString();
+                handleExpression.setExprssion(expression);
+                if (!mTimeOn2) {
+                    mTimeOn2 = true;
+                    initXY();
+                    mTimerForRedraw.schedule2();
+                } else {
+                    initXY();
+                }
+
+            }
+        });
+
+
         //缩放/旋转
         bSubmit2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,10 +323,10 @@ public class MainActivity extends TabActivity {
                 set.addAnimation(scaleAnimation);
                 set.addAnimation(rotateAnimation);
                 scaleImage.setAnimation(set);
-                //scaleAnimation.startNow();
 
             }
         });
+
         //颜色
         bSubmit3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,15 +337,26 @@ public class MainActivity extends TabActivity {
                     int R = Integer.parseInt(color[0]);
                     int G = Integer.parseInt(color[1]);
                     int B = Integer.parseInt(color[2]);
-                    Log.v("RGB", R + " " + G + " " + B);
-                    mColorView.setRGB(R, G, B);
-                    mColorView.invalidate();
+                    if (R < 0 || R > 255 || G < 0 || G > 255 || B < 0 || B > 255) {
+                        Toast.makeText(MainActivity.this, "输入的各项数值应小于等于255", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        mColorView.setRGB(R, G, B);
+                        mColorView.invalidate();
+                    }
+
                 } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "请按正确格式输入(255 0 0)", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
         });
 
+    }
+
+    private void initXY() {
+        curX = 0;
+        curY = 0;
     }
 
 

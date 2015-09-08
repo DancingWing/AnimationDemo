@@ -2,11 +2,16 @@
 <items version="2" >
 
     <item
-        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-d5cba033d643e4ac99d71b3035d0084614d5e8b8.jar" />
+        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false" revision="22.0.1" sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex
+            dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\classes-bae429cb4bbf9fa7c1d4a6376668e3f3bc4b562a.jar" />
+    </item>
+    <item
+        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false" revision="22.0.1" sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex
+            dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\classes-061c44de5aae7f6bb15339e45dc1fea8881bfd3b.jar" />
     </item>
     <item
         jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
@@ -16,18 +21,10 @@
         <dex dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-db1bb2a3f1608a31c38a2d1f5698fe71cc45038a.jar" />
     </item>
     <item
-        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1" sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false" revision="22.0.1" sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
         <dex
-            dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\classes-bae429cb4bbf9fa7c1d4a6376668e3f3bc4b562a.jar" />
-    </item>
-    <item
-        jar="D:\Code\Android\AnimationDemo\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1" sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex
-            dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\classes-061c44de5aae7f6bb15339e45dc1fea8881bfd3b.jar" />
+            dex="D:\Code\Android\AnimationDemo\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-d5cba033d643e4ac99d71b3035d0084614d5e8b8.jar" />
     </item>
 
 </items>
